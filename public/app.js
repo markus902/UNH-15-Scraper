@@ -1,8 +1,23 @@
-// Grab the articles as a json
+// $("#scrapeButton").on("click", function () {
+//   alert("clicked");
+// });
+
+
 $.getJSON("/articles", function (data) {
-  for (var i = 0; i < data.length; i++) {
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-  }
+  data.forEach(element => {
+    let newArticleHeadline = $("<h2>");
+    let newArticlelink = $("<a>");
+    let newNoteButton = $("<button>");
+
+    newArticleHeadline.addClass("articleHeadline").text(element.title);
+    newArticlelink.addClass("articleLink").text(element.link);
+    newNoteButton.addClass("noteButton").text("Note");
+
+    $("#articles")
+      .append(newArticleHeadline)
+      .append(newArticlelink)
+      .append(newNoteButton);
+  });
 });
 
 $(document).on("click", "p", function () {
@@ -10,9 +25,9 @@ $(document).on("click", "p", function () {
   var thisId = $(this).attr("data-id");
 
   $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
-    })
+    method: "GET",
+    url: "/articles/" + thisId
+  })
     .then(function (data) {
       console.log(data);
       $("#notes").append("<h2>" + data.title + "</h2>");
@@ -31,13 +46,13 @@ $(document).on("click", "#savenote", function () {
   var thisId = $(this).attr("data-id");
 
   $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        title: $("#titleinput").val(),
-        body: $("#bodyinput").val()
-      }
-    })
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      title: $("#titleinput").val(),
+      body: $("#bodyinput").val()
+    }
+  })
     .then(function (data) {
       console.log(data);
       $("#notes").empty();
