@@ -32,15 +32,15 @@ mongoose.connect("mongodb+srv://markus902:dasser@markuscluster-dmvcb.mongodb.net
 
 //Handlebars Config
 
-app.engine("handlebars", exphbs({
-    defaultLayout: "main"
-}));
-app.set("view engine", "handlebars");
+// app.engine("handlebars", exphbs({
+//     defaultLayout: "main"
+// }));
+// app.set("view engine", "handlebars");
 
 // Routes
 
 app.get("/index", function (req, res) {
-    res.render("index")
+    res.sendfile("./public/index.html")
 })
 
 app.get("/scrape", function (req, res) {
@@ -73,11 +73,14 @@ app.get("/scrape", function (req, res) {
 app.get("/articles", function (req, res) {
     console.log("articles found")
     db.Article.find({}).then(function (allArticles) {
-        console.log(allArticles);
+        // var hbsObject = res.json(allArticles);
+        // console.log(hbsObject)
+        // res.render("index", hbsObject);
         res.json(allArticles);
-    }).catch(function (err) {
-        res.json(err)
-    });
+    })
+        .catch(function (err) {
+            res.json(err)
+        });
 });
 
 app.get("/articles/:id", function (req, res) {
