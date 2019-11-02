@@ -84,14 +84,13 @@ app.get("/articles", function (req, res) {
 });
 
 app.get("/articles/:id", function (req, res) {
-    var id = req.params.id;
     console.log("Article " + req.params.id);
     db.Article.findOne({
         _id: req.params.id
     })
-        // .populate("note")
-        .then(function (dbArticle) {
-            res.json(dbArticle);
+        .populate("note")
+        .then(function (oneArticle) {
+            res.json(oneArticle);
         }).catch(function (err) {
             res.json(err)
         })
