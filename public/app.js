@@ -42,11 +42,6 @@ $(document).ready(function () {
     })
       .then(function (data) {
         console.log(data);
-        // let newForm = $("<input>");
-        // let newSaveButton = $("<button>");
-
-        // newForm.attr("id", "bodyinput");
-        // newSaveButton.addClass("btn btn-success").attr("value", data._id);
 
         $("#notes").append(newForm).append(newSaveButton);
 
@@ -66,7 +61,7 @@ $(document).ready(function () {
       url: "/articles/" + thisId,
       data: {
         title: $("#noteTitleInput").val(),
-        body: $("#noteBodyInput").val()
+        body: $("#noteBodyInput").val(),
       }
     })
       .then(function (data) {

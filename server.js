@@ -88,7 +88,7 @@ app.get("/articles/:id", function (req, res) {
     db.Article.findOne({
         _id: req.params.id
     })
-        .populate("note")
+        .populate("Note")
         .then(function (oneArticle) {
             res.json(oneArticle);
         }).catch(function (err) {
@@ -97,6 +97,7 @@ app.get("/articles/:id", function (req, res) {
 });
 
 app.post("/articles/:id", function (req, res) {
+    console.log(req.body)
     db.Note.create(req.body)
         .then(function (dbNote) {
             return db.Article.findOneAndUpdate({
@@ -109,6 +110,8 @@ app.post("/articles/:id", function (req, res) {
             res.json(err);
         });
 });
+
+
 
 // Start the server
 app.listen(PORT, function () {
