@@ -30,23 +30,14 @@ mongoose.connect("mongodb+srv://markus902:dasser@markuscluster-dmvcb.mongodb.net
     useUnifiedTopology: true
 });
 
-//Handlebars Config
-
-// app.engine("handlebars", exphbs({
-//     defaultLayout: "main"
-// }));
-// app.set("view engine", "handlebars");
-
-// Routes
-
 app.get("/index", function (req, res) {
-    res.sendfile("./public/index.html")
+    res.sendfile("./public/index.html");
 })
 
 app.get("/scrape", function (req, res) {
     axios.get("http://www.echojs.com/").then(function (response) {
         var $ = cheerio.load(response.data);
-
+        console.log("Blah" + response.title);
         $("article h2").each(function (i, element) {
             var result = {};
 
@@ -56,7 +47,9 @@ app.get("/scrape", function (req, res) {
             result.link = $(this)
                 .children("a")
                 .attr("href");
-
+            console.log(this.text)
+            // db.Article.findOne(this.value);
+            // console.log(this.value)
             db.Article.create(result)
                 .then(function (dbArticle) {
                     console.log(dbArticle);
@@ -65,17 +58,13 @@ app.get("/scrape", function (req, res) {
                     console.log(err);
                 });
         });
-
-        res.send("Scrape Complete");
+        res.json(result);
     });
 });
 
 app.get("/articles", function (req, res) {
     console.log("articles found")
     db.Article.find({}).then(function (allArticles) {
-        // var hbsObject = res.json(allArticles);
-        // console.log(hbsObject)
-        // res.render("index", hbsObject);
         res.json(allArticles);
     })
         .catch(function (err) {
@@ -88,7 +77,7 @@ app.get("/articles/:id", function (req, res) {
     db.Article.findOne({
         _id: req.params.id
     })
-        .populate("Note")
+        .populate("note")
         .then(function (oneArticle) {
             res.json(oneArticle);
         }).catch(function (err) {
@@ -97,12 +86,12 @@ app.get("/articles/:id", function (req, res) {
 });
 
 app.post("/articles/:id", function (req, res) {
-    console.log(req.body)
+    console.log(req.params, req.params.id, req.body);
     db.Note.create(req.body)
         .then(function (dbNote) {
             return db.Article.findOneAndUpdate({
-                _id: req.params
-            }, { note: dbNote._id }, { new: true })
+                _id: req.params.id
+            }, { $push: { note: dbNote._id } }, { new: true })
         }).then(function (dbArticle) {
             res.json(dbArticle);
         })

@@ -8,7 +8,11 @@ h1.main{
 #noteBox{
     position: fixed !important;
     width: 50%;
-    height: 50%;
+    height: max-content;
+}
+
+.jumbo-wrapper{
+    width: 100%;
 }
 
 #noteTitleInput{
@@ -17,4 +21,9 @@ h1.main{
 
 #noteBodyInput{
     width: 80%;
+}
+
+.jumbotron{
+    min-width: max-content;
+    min-height: fit-content;
 }

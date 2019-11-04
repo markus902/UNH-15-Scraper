@@ -11,16 +11,19 @@
 
 <body>
   <div id="wrapper" class="container">
-    <div class="jumbotron" id="noteBox">
-      <div class="container">
-        <strong>Notes: </strong>
-        <br>
-        <ul id="existingNotes"></ul>
-        <input id="noteTitleInput" class="form-control" placeholder="Note title"></input>
-        <br><br>
-        <textarea id="noteBodyInput" class="form-control" placeholder="Type your note here" rows="3"></textarea>
-        <br><br>
-        <button type="button" class="btn btn-success" id="saveNote">Save note</button>
+    <div class="text-center jumbo-wrapper">
+      <div class="jumbotron" id="noteBox">
+        <div class="container">
+          <strong>Notes: </strong>
+          <ul id="existingNotes"></ul>
+          <br><br>
+          <input id="noteTitleInput" class="form-control" placeholder="Note title"></input>
+          <br><br>
+          <textarea id="noteBodyInput" class="form-control" placeholder="Type your note here" rows="3"></textarea>
+          <br><br>
+          <button type="button" class="btn btn-success" id="saveNote">Save note</button>
+          <button type="button" class="btn btn-danger" id="closeNote">close</button>
+        </div>
       </div>
     </div>
     <h1 class="text-center mt-4 mb-4 main">My Article Scraper</h1>

@@ -8,11 +8,12 @@ $(document).ready(function () {
 
   $.getJSON("/articles", function (data) {
     let counter = 0
+    console.log(data);
     data.forEach(element => {
       let newArticleHeadline = $("<h2>");
       let newDivy = $("<div>");
       let newArticlelink = $("<a>");
-      let newNoteButton = $("<button>");
+      let newNoteTitleButton = $("<button>");
 
       counter++;
       console.log(counter)
@@ -34,19 +35,24 @@ $(document).ready(function () {
         .text("Go to page ...")
         .attr("href", element.link);
 
-      newNoteButton.addClass("noteButton btn btn-primary pl-4 pr-4")
+      newNoteTitleButton.addClass("noteButton btn btn-primary pl-4 pr-4")
         .attr("value", element._id)
         .text("Note");
 
       newDivy
         .append(newArticleHeadline)
         .append(newArticlelink)
-        .append(newNoteButton);
+        .append(newNoteTitleButton);
 
       $("#articles")
         .append(newDivy);
     });
     counter = 0;
+  });
+
+  $("#closeNote").on("click", function () {
+    $("#noteBox").hide();
+    $("#existingNotes").empty();
   });
 
   $("#scrapeButton").on("click", function () {
@@ -69,16 +75,20 @@ $(document).ready(function () {
       url: "/articles/" + thisId
     })
       .then(function (data) {
-        console.log(data);
+        console.log(data.note);
         if (data.note) {
           data.note.map((element) => {
-            let newNote = $("<li>");
-            newNote.text(element);
-            $("#existingNotes").append(newNote);
+            let newNoteTitle = $("<p>");
+            newNoteTitle.css("font-weight", "bold").text(element.title);
+            let newNoteBody = $("<p>").text(element.body);
+            let newLine = $("<hr>");
+            newNoteBody.text(element.body);
+            $("#existingNotes").append(newNoteTitle).append(newNoteBody).append(newLine);
+
           });
         } else {
-          newNote.text("There are no notes for this article.")
-          $("#existingNotes").append(newNote)
+          newNoteTitle.text("There are no notes for this article.")
+          $("#existingNotes").append(newNoteTitle)
         };
       });
   });
