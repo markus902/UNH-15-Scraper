@@ -1,0 +1,20 @@
+h1.main{
+    background: rgb(4, 14, 38);
+    color: whitesmoke;
+    padding: 20px;
+    width: 100%;
+}
+
+#noteBox{
+    position: fixed !important;
+    width: 50%;
+    height: 50%;
+}
+
+#noteTitleInput{
+    width: 80%;
+}
+
+#noteBodyInput{
+    width: 80%;
+}

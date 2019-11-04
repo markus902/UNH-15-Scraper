@@ -6,21 +6,29 @@
   <title>Scraping With Mongoose</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
-  <button id="scrapeButton">Scrape</button>
-  <div id="wrapper">
-    <h1>My Article Scraper</h1>
-    <div class="card shadow bg-info w-25 mt-4 ml-auto mr-4 fixed-top text-center" id="noteBox">Notes:
-      <input id="noteTitleInput" placeholder="Note title"></input>
-      <input id="noteBodyInput" placeholder="Type your note here"></input>
-      <button id="saveNote">Save note</button>
+  <div id="wrapper" class="container">
+    <div class="jumbotron" id="noteBox">
+      <div class="container">
+        <strong>Notes: </strong>
+        <br>
+        <ul id="existingNotes"></ul>
+        <input id="noteTitleInput" class="form-control" placeholder="Note title"></input>
+        <br><br>
+        <textarea id="noteBodyInput" class="form-control" placeholder="Type your note here" rows="3"></textarea>
+        <br><br>
+        <button type="button" class="btn btn-success" id="saveNote">Save note</button>
+      </div>
     </div>
-    <div id="articles"></div>
-    <div id="notes"></div>
-    <div id=""></div>
+    <h1 class="text-center mt-4 mb-4 main">My Article Scraper</h1>
+    <h4 class="mb-4">Check out the lastet articles form echojs.com and ad your notes.</h4>
+    <div class="text-center">
+      <button type="button" class="btn btn-warning mb-4" id="scrapeButton">Search for new Articles</button>
+    </div>
+    <div id="articles" class="articleContainer"></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="app.js"></script>
